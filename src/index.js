@@ -123,6 +123,7 @@ module.exports = React.createClass({
     autoplayDirection                : React.PropTypes.bool,
     index                            : React.PropTypes.number,
     renderPagination                 : React.PropTypes.func,
+    onChangeIndex                    : React.PropTypes.func,
   },
 
   mixins: [TimerMixin],
@@ -300,6 +301,10 @@ module.exports = React.createClass({
       }
     }
 
+    if(this.props.onChangeIndex) {
+      this.props.onChangeIndex(index);
+    }
+
     this.setState({
       index: index,
       offset: offset,
@@ -465,6 +470,7 @@ module.exports = React.createClass({
         && prop !== 'onMomentumScrollEnd'
         && prop !== 'renderPagination'
         && prop !== 'onScrollBeginDrag'
+        && prop !== 'onChangeIndex'
       ) {
         let originResponder = props[prop]
         props[prop] = (e) => originResponder(e, this.state, this)
